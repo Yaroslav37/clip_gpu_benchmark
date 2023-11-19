@@ -17,13 +17,13 @@
 <body>
     <h1>Обработка изображения</h1>
 
-    <form method="POST" action="{% url 'process_image' %}" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'search' %}" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="text" name="comment" placeholder="Введите комментарий">
+        <input type="text" name="query" placeholder="Введите запрос">
         <br>
-        <input type="file" name="myfile">
-        <br>
-        <input type="submit" value="Загрузить файл и комментарий">
+        {% comment %} <input type="file" name="myfile">
+        <br> {% endcomment %}
+        <input type="submit" value="поиск">
         <!-- <input type="file" name="myfile">
         <input type="submit" value="Загрузить файл"> -->
     </form>
