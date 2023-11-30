@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Результаты сравнения</title>
+  <style>
+    body {
+        font-size: 16px; /* Установка базового размера текста */
+    }
+    
+    h2, p, li {
+        font-size: 20px; /* Увеличение размера текста для заголовков, параграфов и элементов списка */
+    }
+  </style>
+</head>
+<body>
+
+{% if image %}
+  <img src="{% static image %}" alt="Изображение">
+{% endif %}
+
+{% if results %}
+  <h2>Результаты классификации</h2>
+  <ul>
+    {% for result in results %}
+    <li>
+      <p>{{ result.0 }}</p>
+      <div style="display: flex;  align-items: center; max-width: 500px;">
+        <div style="background-color: #4CAF50; height: 20px; width: {{ result.1 }}%">
+        </div>
+        <span style="margin-left: 10px;">{{ result.1 }}%</span>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if execution_time %}
+  <p>Время выполнения: {{ execution_time }}</p>
+{% endif %}
+
+</body>
+</html>

@@ -13,17 +13,43 @@
 <html>
 <head>
     <title>Обработка изображения</title>
+    <style>
+        /* Стили для нумерованного списка */
+        .image-list {
+            list-style: none;
+            counter-reset: image-counter;
+            padding-left: 0;
+        }
+
+        .image-list li {
+            counter-increment: image-counter;
+            margin-bottom: 10px;
+        }
+
+        .image-list li img {
+            vertical-align: middle;
+            max-width: 200px; /* Измените размеры изображений по вашему усмотрению */
+            height: auto;
+        }
+
+        .image-list li:before {
+            content: counter(image-counter) ". "; /* Добавление нумерации */
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Обработка изображения</h1>
 
     <!-- Результаты выполнения кода -->
     <h2>Результаты выполнения:</h2>
-    <ul>
-        {% for img in images %}
-            <img src="https://ik.imagekit.io/zwymr4sxm/archive/data/{{img.file_path}}">
+    <ul class="image-list">
+        {% for image in images %}
+            <li>
+                <img src="https://ik.imagekit.io/zwymr4sxm/archive/data/{{ image.file_path }}">
+            </li>
         {% endfor %}
     </ul>
-
 </body>
 </html>

@@ -1,43 +1,103 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Моя стартовая страница</title>
-</head>
-<body>
-    <h1>Добро пожаловать на мою стартовую страницу</h1>
-    <p>Это ваша главная страница в Django.</p>
-</body>
-</html> -->
 
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Обработка изображения</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <style>
+        #query {
+            width: 33.33%;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 33.33%;
+        }
+        
+        .input-group {
+            display: flex;
+            width: 100%;
+        }
+        
+        .input-group input {
+            flex: 1;
+            margin-right: 5px; /* Расстояние между полем ввода и кнопкой */
+        }
+
+        .one-third-width {
+            width: calc(33.33% - 10px); /* Вычитаем отступы для достижения одной трети ширины */
+            /* Может потребоваться настроить отступы в зависимости от стилей вашего проекта */
+            margin-right: 10px;
+        }
+        
+        form div {
+            margin-bottom: 10px; /* Добавляем отступ между элементами формы */
+        }
+
+        body {
+            margin-left: 20px;
+        }
+
+        .one-third-width-area {
+            width: calc(33.33% - 10px); /* Вычитаем отступы для достижения одной трети ширины */
+            /* Может потребоваться настроить отступы в зависимости от стилей вашего проекта */
+            margin-right: 10px;
+            height: 30px;
+        }
+
+        .dark-blue {
+            color: #000080; /* Темно-синий цвет (в данном случае - navy) */
+            /* Дополнительные стили для заголовка, если необходимо */
+        }
+        
+        
+    </style>
 </head>
 <body>
-    <h1>Обработка изображения</h1>
+    <h1 class="dark-blue">Поиск изображений</h1>
 
-    <form method="POST" action="{% url 'search' %}" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'search' %}" enctype="multipart/form-data" class="search-form">
         {% csrf_token %}
-        <input type="text" name="query" placeholder="Введите запрос">
-        <br>
-        {% comment %} <input type="file" name="myfile">
-        <br> {% endcomment %}
-        <input type="submit" value="поиск">
-        <!-- <input type="file" name="myfile">
-        <input type="submit" value="Загрузить файл"> -->
+        <label for="query">Введите запрос:</label>
+        <div class="input-group">
+            <input type="text" id="query" name="query" placeholder="Введите запрос" class="form-control rounded">
+            <button type="submit" class="btn btn-outline-primary" data-mdb-ripple-init>Поиск</button>
+        </div>
     </form>
+    
+    <hr> <!-- Горизонтальная линия -->
 
-    <!-- Результаты выполнения кода -->
-    <h2>Результаты выполнения:</h2>
-    <ul>
-        {% for result in results %}
-            <li>{{ result.0 }}: {{ result.1 }}</li>
-        {% endfor %}
-    </ul>
+    <h1 class="dark-blue">Классификация изображения</h1>
+    <form action="{% url 'image_text_comparison'%}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="imageFile">Выберите изображение:</label>
+            <br>
+            <input class="form-control one-third-width" type="file" id="imageFile" name="imageFile">
+        </div>
+    
+        <div>
+            <label for="textInput">Введите запросы через запятую:</label>
+            <br>
+            <textarea id="textInput" name="textInput" class="one-third-width-area" rows="4" cols="50"></textarea>
+        </div>
+    
+        <div>
+            <input type="submit" value="Классифицировать" class="btn btn-outline-primary" data-mdb-ripple-init>
+        </div>
+    </form>
+    
 
-    <!-- Время выполнения -->
-    <p>Время выполнения: {{ execution_time }} сек.</p>
+    <script>
+        import { Ripple, initMDB } from "mdb-ui-kit";
 
+        initMDB({ Ripple });
+    </script>
 </body>
 </html>
